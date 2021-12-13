@@ -13,13 +13,15 @@ from jbi100_app.views.twinhistogram import Twinhistogram
 
 if __name__ == '__main__':
     # Create data
-    [cdf, vdf] = get_data()
+    [cdf, vdf, adf] = get_data()
 
     # Instantiate custom views
     plot1 = Stackedplot("Annual costs over time", 'casualty_type', cdf, 'cost (£)')
     plot2 = Stackedplot("Vehicles over time", 'vehicle_type', vdf, 'total')
     plot3 = Twinhistogram("Casualty comparison histogram", 'casualty_type', cdf, 7, 'cost (£)')
-    plot4 = Twinhistogram("Vehicle comparison histogram", 'vehicle_type', vdf, 7, 'total')
+    plot4 = Twinhistogram("Vehicle comparison histogram", 'vehicle_type', vdf, 10, 'total')
+    plot5 = Stackedplot("Accidents over time", 'number_of_vehicles', adf, 'total')
+    plot6 = Twinhistogram("Accident comparison histogram", 'did_police_officer_attend_scene_of_accident', adf, 8, 'total')
 
     app.layout = html.Div(
         id="app-container",
@@ -40,6 +42,8 @@ if __name__ == '__main__':
                     plot2,
                     plot3,
                     plot4,
+                    plot5,
+                    plot6
                 ],
             ),
         ],
@@ -78,5 +82,20 @@ if __name__ == '__main__':
     def update_plot_4(selected_value, selected_category, selected_year):
         return plot4.update(selected_value, selected_category, selected_year)
 
+    @app.callback(
+        Output(plot5.html_id, "figure"), [
+        Input("select-category-5", "value"),
+    ])
+    def update_plot_5(selected_category):
+        return plot5.update(selected_category)
+
+    @app.callback(
+        Output(plot6.html_id, "figure"), [
+        Input("select-value-6", "value"),
+        Input("select-category-6", "value"),
+        Input("select-year-6", "value"),
+    ])
+    def update_plot_6(selected_value, selected_category, selected_year):
+        return plot6.update(selected_value, selected_category, selected_year)
 
     app.run_server(debug=False, dev_tools_ui=False)

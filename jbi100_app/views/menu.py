@@ -1,5 +1,5 @@
 from dash import dcc, html
-from ..config import category_list1, category_list2
+from ..config import category_list1, category_list2, category_list3
 
 
 def generate_description_card():
@@ -79,6 +79,34 @@ def generate_control_card():
             html.Label("Year of plot 4"),
             dcc.Dropdown(
                 id="select-year-4",
+                options=[{"label": i, "value": i} for i in range(2010, 2021)],
+                value=2012,
+            ),
+            html.Br(),
+            html.Label("Category plot 5"),
+            dcc.Dropdown(
+                id="select-category-5",
+                options=[{"label": i, "value": i} for i in category_list3],
+                value=category_list3[0],
+            ),
+            html.Br(),
+            html.Label("Value metric of plot 6"),
+            dcc.Dropdown(
+                id="select-value-6",
+                options=[{"label": i, "value": i} for i in category_list3],
+                value=category_list3[0],
+            ),
+            html.Br(),
+            html.Label("Categorization plot 6"),
+            dcc.Dropdown(
+                id="select-category-6",
+                options=[{"label": i, "value": i} for i in category_list3],
+                value=category_list3[0],
+            ),
+            html.Br(),
+            html.Label("Year of plot 6"),
+            dcc.Dropdown(
+                id="select-year-6",
                 options=[{"label": i, "value": i} for i in range(2010, 2021)],
                 value=2012,
             ),

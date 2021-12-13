@@ -37,10 +37,18 @@ class Twinhistogram(html.Div):
         mode = self.df[category_feature].value_counts().idxmax()
         df_a = df[df[category_feature] == mode]
         df_b = df[df[category_feature] != mode]
+        # filter out all values of negative 1
+        df_a = df_a[df_a[value_feature] >= 0]
+        df_b = df_b[df_b[value_feature] >= 0]
+        # remove outliers?: top 1% of the data (usually corresponds to 99=unknown)
+        df_a = df_a[df_a[value_feature] < df_a[value_feature].quantile(.99)]
+        df_b = df_b[df_b[value_feature] < df_b[value_feature].quantile(.99)]
+
         # then based on the category's cost values make histogram
         # determine histogram buckets
-        min_value = self.df[value_feature].min()
-        value_range = self.df[value_feature].max() - min_value
+        min_value = min(df_a[value_feature].min(), df_b[value_feature].min())
+        max_value = max(df_a[value_feature].max(), df_b[value_feature].max())
+        value_range = max_value - min_value
         bucket_size = value_range / self.n_buckets
         buckets1 = [0] * self.n_buckets
         buckets2 = [0] * self.n_buckets
