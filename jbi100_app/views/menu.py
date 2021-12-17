@@ -1,5 +1,5 @@
 from dash import dcc, html
-from ..config import color_list1, color_list2
+from ..config import category_list1, category_list2, category_list3
 
 
 def generate_description_card():
@@ -10,10 +10,10 @@ def generate_description_card():
     return html.Div(
         id="description-card",
         children=[
-            html.H5("Example dashboard"),
+            html.H5("Group 55"),
             html.Div(
                 id="intro",
-                children="You can use this as a basic template for your JBI100 visualization project.",
+                children="Insurance adjuster analysis dashboard",
             ),
         ],
     )
@@ -27,19 +27,90 @@ def generate_control_card():
     return html.Div(
         id="control-card",
         children=[
-            html.Label("Color scatterplot 1"),
+            html.Label("Category plot 1"),
             dcc.Dropdown(
-                id="select-color-scatter-1",
-                options=[{"label": i, "value": i} for i in color_list1],
-                value=color_list1[0],
+                id="select-category-1",
+                options=[{"label": i, "value": i} for i in category_list1],
+                value=category_list1[0],
             ),
             html.Br(),
-            html.Label("Color scatterplot 2"),
+            html.Label("Category plot 2"),
             dcc.Dropdown(
-                id="select-color-scatter-2",
-                options=[{"label": i, "value": i} for i in color_list2],
-                value=color_list2[0],
+                id="select-category-2",
+                options=[{"label": i, "value": i} for i in category_list2],
+                value=category_list2[0],
             ),
+            html.Br(),
+            html.Label("Value metric of plot 3"),
+            dcc.Dropdown(
+                id="select-value-3",
+                options=[{"label": i, "value": i} for i in category_list1],
+                value=category_list1[0],
+            ),
+            html.Br(),
+            html.Label("Categorization for plot 3"),
+            dcc.Dropdown(
+                id="select-category-3",
+                options=[{"label": i, "value": i} for i in category_list1],
+                value=category_list1[0],
+            ),
+            html.Br(),
+            html.Label("Year of plot 3"),
+            dcc.Dropdown(
+                id="select-year-3",
+                options=[{"label": i, "value": i} for i in range(2010, 2021)],
+                value=2015,
+            ),
+            html.Br(),
+            html.Label("Value metric of plot 4"),
+            dcc.Dropdown(
+                id="select-value-4",
+                options=[{"label": i, "value": i} for i in category_list2],
+                value=category_list2[0],
+            ),
+            html.Br(),
+            html.Label("Categorization plot 4"),
+            dcc.Dropdown(
+                id="select-category-4",
+                options=[{"label": i, "value": i} for i in category_list2],
+                value=category_list2[0],
+            ),
+            html.Br(),
+            html.Label("Year of plot 4"),
+            dcc.Dropdown(
+                id="select-year-4",
+                options=[{"label": i, "value": i} for i in range(2010, 2021)],
+                value=2012,
+            ),
+            html.Br(),
+            html.Label("Category plot 5"),
+            dcc.Dropdown(
+                id="select-category-5",
+                options=[{"label": i, "value": i} for i in category_list3],
+                value=category_list3[0],
+            ),
+            html.Br(),
+            html.Label("Value metric of plot 6"),
+            dcc.Dropdown(
+                id="select-value-6",
+                options=[{"label": i, "value": i} for i in category_list3],
+                value=category_list3[0],
+            ),
+            html.Br(),
+            html.Label("Categorization plot 6"),
+            dcc.Dropdown(
+                id="select-category-6",
+                options=[{"label": i, "value": i} for i in category_list3],
+                value=category_list3[0],
+            ),
+            html.Br(),
+            html.Label("Year of plot 6"),
+            dcc.Dropdown(
+                id="select-year-6",
+                options=[{"label": i, "value": i} for i in range(2010, 2021)],
+                value=2012,
+            ),
+            html.Br(),
         ], style={"textAlign": "float-left"}
     )
 
