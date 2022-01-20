@@ -46,3 +46,17 @@ h5 {
     padding-bottom: 7px;
     border-bottom:  1px solid #ccc;
 }
+
+.inline-control-card > div {
+    /* the left column takes up 1/3 of the screen already */
+    width: 17%;
+    padding-right: 1%;
+    float: left;
+}
+
+/* clear floats from above */
+.inline-control-card::after {
+  content: "";
+  clear: both;
+  display: table;
+}

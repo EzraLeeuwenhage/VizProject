@@ -1,5 +1,6 @@
 import pandas as pd
 from time import time
+from functools import cache
 import sys
 from jbi100_app.config import casualty_data, vehicle_data, accident_data
 
@@ -8,7 +9,7 @@ from jbi100_app.config import casualty_data, vehicle_data, accident_data
 # For testing make this higher, for final presentation set it lower.
 SAMPLING_RATE = 20
 
-
+@cache
 def get_data():
     start = time()
     print("Reading the data")
@@ -74,6 +75,7 @@ def get_data():
 
 
 # function that enables faster testing due to less pre-computation
+@cache
 def test_data():
     start = time()
     print("Reading the data")
@@ -103,6 +105,6 @@ def test_data():
     # augment each row with a cost value based on severity
     casualty_df['cost'] = casualty_df.apply(
         lambda row: SAMPLING_RATE * cost_by_year_casualty(row['accident_year'], row['casualty_severity']), axis=1)
-
+    print(f"Done reading data in {time() - start:.2f}s")
     return casualty_df
 
