@@ -49,6 +49,9 @@ def get_data():
             'url: https://data.dft.gov.uk/road-accidents-safety-data/dft-road-casualty-statistics-accident-1979-2020.csv')
         sys.exit(1)
 
+    # remove the row for 2016210132254 because it has NULL speed limit
+    bad_index = accident_df[accident_df['accident_index'] == '2016210132254'].index
+    accident_df = accident_df.drop(bad_index)
     # first, drop the columns that conflict from the accident table
     accident_df = accident_df.drop('accident_year', axis=1)
     accident_df = accident_df.drop('accident_index', axis=1)

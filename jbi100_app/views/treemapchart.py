@@ -49,6 +49,7 @@ class TreeMapChart(html.Div):
                 lambda row: row['norm_factor'] * row[self.feature_y], axis=1)
             df.loc[:, 'norm_cost'] /= df['norm_cost'].sum()
 
+            # TODO: fix the colors between the graphs, e.g. by sorting the values
             fig = px.treemap(df,
                             path=[px.Constant("all")] + category_features,
                             values='norm_cost',

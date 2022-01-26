@@ -54,6 +54,7 @@ You will get a http link, open this in your browser to see the results. You can 
 
 
 # TODO:
+- labels for the category values
 - page1:
   - add accident columns
   - e.g. put all accident rows into casualty table
