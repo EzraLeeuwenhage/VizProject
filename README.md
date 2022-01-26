@@ -51,3 +51,21 @@ You will get a http link, open this in your browser to see the results. You can 
 ## Resources
 
 * [Dash](https://dash.plot.ly/)
+
+
+# TODO:
+- page1:
+  - add accident columns
+  - e.g. put all accident rows into casualty table
+- page2:
+  - create a detailed graph of specific attribute (maybe just a pie chart or bar chat)
+- page3:
+  - comparison between two attributes
+  - e.g. ternary plot, back-to-back histogram
+- page4:
+  - visualization of attribute info over time
+  - e.g. radial plot / stacked line chart
+
+- final touches:
+  - buttons for ui to go between pages
+  - make graphs look nice
