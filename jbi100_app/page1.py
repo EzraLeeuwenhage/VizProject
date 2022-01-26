@@ -9,9 +9,9 @@ from jbi100_app.data import test_data
 from jbi100_app.views.stackedplot import Stackedplot
 from jbi100_app.views.treemapchart import TreeMapChart
 
-from jbi100_app.config import category_list1
+from jbi100_app.config import category_list4
 
-cdf = test_data()
+[cdf, _, _] = get_data()
 plot1 = Stackedplot("Annual costs over time", 'casualty_type', cdf, 'cost (£)')
 plotx = TreeMapChart("High-level cost breakdown by casualty")
 plotx_norm = TreeMapChart("Cost normalized by expected frequency by casualty")
@@ -49,7 +49,7 @@ def update_plot_x_norm(*args):
 NONE = "None"
 
 def layout():
-    categories = [NONE] + category_list1
+    categories = [NONE] + category_list4
     def tree_level(id):
         return html.Div(children=[
             html.Label("Level " + str(id)),

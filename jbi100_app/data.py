@@ -1,6 +1,6 @@
 import pandas as pd
 from time import time
-from functools import cache
+from functools import lru_cache
 import sys
 from jbi100_app.config import casualty_data, vehicle_data, accident_data
 
@@ -9,7 +9,7 @@ from jbi100_app.config import casualty_data, vehicle_data, accident_data
 # For testing make this higher, for final presentation set it lower.
 SAMPLING_RATE = 20
 
-@cache
+@lru_cache(None)
 def get_data():
     start = time()
     print("Reading the data")
@@ -41,6 +41,27 @@ def get_data():
         lambda row: SAMPLING_RATE * cost_by_year_casualty(row['accident_year'], row['casualty_severity']), axis=1)
 
     try:
+        accident_df = pd.read_csv(accident_data)
+    except FileNotFoundError:
+        print('Accident data not found! Please download it to the data/ folder.')
+        print(f'expected path is {accident_data}')
+        print(
+            'url: https://data.dft.gov.uk/road-accidents-safety-data/dft-road-casualty-statistics-accident-1979-2020.csv')
+        sys.exit(1)
+
+    # first, drop the columns that conflict from the accident table
+    accident_df = accident_df.drop('accident_year', axis=1)
+    accident_df = accident_df.drop('accident_index', axis=1)
+    # then, merge all the columns of accidents into casualties
+    # https://pandas.pydata.org/docs/user_guide/merging.html#
+    merged = pd.merge(
+        casualty_df,
+        accident_df,
+        how="inner",
+        on='accident_reference',
+    )
+
+    try:
         vehicle_df = pd.read_csv(vehicle_data)
     except FileNotFoundError:
         print('Vehicle data not found! Please download it to the data/ folder.')
@@ -55,27 +76,12 @@ def get_data():
     # "cost" is the value that's summed in the area chart, so here it's just a count
     vehicle_df['cost'] = SAMPLING_RATE
 
-    try:
-        accident_df = pd.read_csv(accident_data)
-    except FileNotFoundError:
-        print('Accident data not found! Please download it to the data/ folder.')
-        print(f'expected path is {accident_data}')
-        print(
-            'url: https://data.dft.gov.uk/road-accidents-safety-data/dft-road-casualty-statistics-accident-1979-2020.csv')
-        sys.exit(1)
-    accident_df = accident_df[
-        (accident_df.index % SAMPLING_RATE == 1) &
-        (accident_df['accident_year'] >= 2010)
-        ]
-    # "cost" is the value that's summed in the area chart, so here it's just a count
-    accident_df['cost'] = SAMPLING_RATE
-    print(f"Done reading data in {time() - start:.2f}s")
-
-    return casualty_df, vehicle_df, accident_df
+    # TODO: remove accident_df entirely
+    return merged, vehicle_df, accident_df
 
 
 # function that enables faster testing due to less pre-computation
-@cache
+@lru_cache(None)
 def test_data():
     start = time()
     print("Reading the data")
