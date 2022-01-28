@@ -1,17 +1,16 @@
-from jbi100_app.data import get_data, test_data
+from jbi100_app.data import get_data
 from dash import html
 import plotly.express as px
 from dash.dependencies import Input, Output
 from jbi100_app.main import app
 from dash import dcc, html
 
-from jbi100_app.data import test_data
 from jbi100_app.views.stackedplot import Stackedplot
 from jbi100_app.views.treemapchart import TreeMapChart
 
 from jbi100_app.config import category_list4
 
-[cdf, _, _] = get_data()
+cdf = get_data()
 plot1 = Stackedplot("Annual costs over time", 'casualty_type', cdf, 'cost (£)')
 plotx = TreeMapChart("High-level cost breakdown by casualty")
 plotx_norm = TreeMapChart("Cost normalized by expected frequency by casualty")
