@@ -42,6 +42,7 @@ def get_data():
 
     try:
         accident_df = pd.read_csv(accident_data)
+
     except FileNotFoundError:
         print('Accident data not found! Please download it to the data/ folder.')
         print(f'expected path is {accident_data}')
@@ -63,6 +64,8 @@ def get_data():
         how="inner",
         on='accident_reference',
     )
+    merged['datetime'] = pd.to_datetime(merged['date'] + merged['time'],
+                                        format='%d/%m/%Y%H:%M')
 
     print(f"Done reading data in {time() - start:.2f}s")
     return merged

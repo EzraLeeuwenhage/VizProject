@@ -11,6 +11,7 @@ from jbi100_app.views.stackedplot import Stackedplot
 from jbi100_app.views.twinhistogram import Twinhistogram
 
 import jbi100_app.page1 as page1
+import jbi100_app.page4 as page4
 
 if __name__ == '__main__':
     # Create data
@@ -18,8 +19,6 @@ if __name__ == '__main__':
 
     plot2 = Twinhistogram("Casualty comparison histogram", 'casualty_type', cdf, 7, 'cost (£)')
     plot3 = Stackedplot("Accidents over time", 'number_of_vehicles', cdf, 'total')
-    plot4 = Twinhistogram("Accident comparison histogram", 'did_police_officer_attend_scene_of_accident', cdf, 8,
-                        'total')
 
     app.layout = html.Div(
         id="app-container",
@@ -65,8 +64,7 @@ if __name__ == '__main__':
         elif plot_num == 3:
             return plot3
         elif plot_num == 4:
-            # TODO
-            return plot4
+            return page4.layout()
 
     @app.callback(
         Output(plot2.html_id, "figure"), [
@@ -83,14 +81,5 @@ if __name__ == '__main__':
         ])
     def update_plot_3(selected_value, selected_category, selected_year):
         return plot3.update(selected_value, selected_category, selected_year)
-
-    @app.callback(
-        Output(plot4.html_id, "figure"), [
-            Input("select-value-4", "value"),
-            Input("select-category-4", "value"),
-            Input("select-year-4", "value"),
-        ])
-    def update_plot_4(selected_value, selected_category, selected_year):
-        return plot4.update(selected_value, selected_category, selected_year)
 
     app.run_server(debug=False, dev_tools_ui=False)

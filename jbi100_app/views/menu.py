@@ -82,31 +82,3 @@ def generate_control_card(plot_num):
                 html.Br(),
             ], style={"textAlign": "float-left"}
         )
-
-    if plot_num == 4:
-        return html.Div(
-            id="control-card",
-            children=[
-                html.Label("Value metric of plot 4"),
-                dcc.Dropdown(
-                    id="select-value-4",
-                    options=[{"label": i, "value": i} for i in category_list4],
-                    value=category_list4[0],
-                ),
-                html.Br(),
-                html.Label("Categorization plot 4"),
-                dcc.Dropdown(
-                    id="select-category-4",
-                    options=[{"label": i, "value": i} for i in category_list4],
-                    value=category_list4[0],
-                ),
-                html.Br(),
-                html.Label("Year of plot 4"),
-                dcc.Dropdown(
-                    id="select-year-4",
-                    options=[{"label": i, "value": i} for i in range(2010, 2021)],
-                    value=2012,
-                ),
-                html.Br(),
-            ], style={"textAlign": "float-left"}
-        )

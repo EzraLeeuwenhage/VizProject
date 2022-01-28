@@ -56,7 +56,7 @@ def layout():
                 id="plotx-level-" + str(id),
                 options=[{"label": i, "value": i} for i in categories],
                 # first level is "severity"
-                value=categories[6] if id == 1 else categories[0],
+                value=categories[1] if id == 1 else categories[0],
             ),
         ])
 
