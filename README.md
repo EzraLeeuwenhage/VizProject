@@ -56,15 +56,15 @@ You will get a http link, open this in your browser to see the results. You can 
 # TODO:
 - labels for the category values: Ave
 - page1: Peter
-  - make the graphs have consistent colors
+  ~~- make the graphs have consistent colors~~
 - page2: Eke
   - create a detailed graph of specific attribute (maybe just a pie chart or bar chat)
 - page3: Ezra
   - comparison between two attributes
   - e.g. ternary plot, back-to-back histogram
 - page4: Peter
-  - visualization of attribute info over time
-  - e.g. radial plot / stacked line chart
+  ~~- visualization of attribute info over time~~
+  ~~- e.g. radial plot / stacked line chart~~
 
 - final touches: all
   - buttons for ui to go between pages
