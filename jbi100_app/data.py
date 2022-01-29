@@ -1,3 +1,29 @@
+from functools import lru_cache
+from time      import time
+from pandas    import read_pickle
+
+@lru_cache(None)
+def get_data():
+    data = []
+    for subject in ['merged', 'vehicle', 'accident']:
+        path = f'data/{subject}-final.pkl.gz'
+        print(f'Reading {path}... ', end='')
+
+        start_time = time()
+        df = read_pickle(path)
+        end_time = time()
+
+        print(f'done! ({end_time - start_time:.2f} seconds.)')
+        data.append(df)
+    return data
+
+@lru_cache(None)
+def test_data():
+    return read_pickle(f'data/casualty-final.pkl.gz')
+
+"""
+    Old code:
+
 import pandas as pd
 from time import time
 from functools import lru_cache
@@ -116,4 +142,4 @@ def test_data():
         lambda row: SAMPLING_RATE * cost_by_year_casualty(row['accident_year'], row['casualty_severity']), axis=1)
     print(f"Done reading data in {time() - start:.2f}s")
     return casualty_df
-
+"""
