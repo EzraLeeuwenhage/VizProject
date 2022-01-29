@@ -13,7 +13,7 @@ def get_data():
         df = read_pickle(path)
         end_time = time()
 
-        print(f'done! ({end_time - start_time:.2f} seconds.)')
+        print(f'\tdone! ({end_time - start_time:.2f} seconds.)')
         data.append(df)
     return data
 
