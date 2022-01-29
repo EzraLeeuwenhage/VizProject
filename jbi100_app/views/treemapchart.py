@@ -49,18 +49,29 @@ class TreeMapChart(html.Div):
                 lambda row: row['norm_factor'] * row[self.feature_y], axis=1)
             df.loc[:, 'norm_cost'] /= df['norm_cost'].sum()
 
-            # TODO: fix the colors between the graphs, e.g. by sorting the values
+            # Color all the squares by the value of the last category so they are consistent
+            # among buckets and between the pair of graphs
+            color = category_features[-1]
+            original_column = df[color]
+            # Convert to a string to give it discrete colors
+            df[color] = df[color].astype(str)
             fig = px.treemap(df,
-                            path=[px.Constant("all")] + category_features,
-                            values='norm_cost',
+                             path=[px.Constant("all")] + category_features,
+                             values='norm_cost',
+                             color=color
                             ) 
-            # df.drop("norm_factor")
-            # df.drop("norm_cost")
+            df[color] = original_column
         else:
+            color = category_features[-1]
+            original_column = df[color]
+            # Convert to a string to give it discrete colors
+            df[color] = df[color].astype(str)
             fig = px.treemap(df,
-                            path=[px.Constant("all")] + category_features,
-                            values=self.feature_y,
+                             path=[px.Constant("all")] + category_features,
+                             values=self.feature_y,
+                             color=color
                             ) 
+            df[color] = original_column
         fig.update_layout(margin = dict(t=50, l=25, r=25, b=25))
 
         print(f"done: updating {self.html_id} plot in {time.time() - start:.2f}s")

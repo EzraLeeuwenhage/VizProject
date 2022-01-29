@@ -9,12 +9,10 @@ category_list3 = ["accident_year", "accident_severity", "number_of_vehicles", "n
 
 # merged casualties + accidents
 # list(set) is deduplication
-# TODO: speed limit column doesn't work because it has NaN/null values
 category_list4 = sorted(list(set(category_list1 + category_list3)))
 
 # directories for stored .csv files
 casualty_data = 'data/dft-road-casualty-statistics-casualty-1979-2020.csv'
-vehicle_data = 'data/dft-road-casualty-statistics-vehicle-1979-2020.csv'
 accident_data = 'data/dft-road-casualty-statistics-accident-1979-2020.csv'
 
-num_plots = 6
+num_plots = 4
