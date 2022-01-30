@@ -3,6 +3,7 @@ import plotly.graph_objects as go
 import plotly.express as px
 import pandas as pd
 import time
+import numpy as np
 
 from jbi100_app.views.shared import field_to_title
 
@@ -31,6 +32,16 @@ class Stackedplot(html.Div):
         print("start: updating plot")
         start = time.time()
         self.feature_color = feature
+
+        c = self.df.groupby([self.feature_color, self.feature_x]).agg({self.feature_y: np.sum}).to_dict()
+        d = {}
+
+        for a, b in c['cost'].keys():
+            if not a in d.keys():
+                d[a] = {}
+            d[a][b] = c['cost'][(a, b)]
+
+        """
         costs = {}
         for val in self.df[self.feature_color].unique():
             costs[val] = {}
@@ -40,7 +51,8 @@ class Stackedplot(html.Div):
                     (self.df[self.feature_color] == val)
                     # TODO & filter out unknown values (9?)
                 ][self.feature_y].sum()
-        fig = px.area(pd.DataFrame(costs),
+        """
+        fig = px.area(pd.DataFrame(d),
                       labels={'value': field_to_title(self.value_label),
                               'index': field_to_title(self.feature_x),
                               'variable': field_to_title(self.feature_color)})
