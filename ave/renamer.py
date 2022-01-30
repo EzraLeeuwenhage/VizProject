@@ -30,6 +30,9 @@ non_cat = {
         'vehicle_reference',
         'casualty_reference',
         'age_of_casualty'
+    ],
+    'merged': [
+        'datetime'
     ]
 }
 
@@ -80,4 +83,11 @@ for sub in dfs.keys():
     pd.to_pickle(dfs[sub], path)
     print(f'done! ({time() - start:.2f} seconds.)')
 
+# %%
+df = pd.read_pickle('../data/merged-final.pkl.gz')
+# %%
+df['datetime'] = pd.to_datetime(df['date'] + df['time'],
+                                        format='%d/%m/%Y%H:%M')
+# %% 
+pd.to_pickle(df, 'merged-final-final.pkl.gz')
 # %%
