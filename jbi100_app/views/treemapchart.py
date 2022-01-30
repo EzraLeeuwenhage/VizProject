@@ -15,7 +15,6 @@ class TreeMapChart(html.Div):
         self.html_id = name.lower().replace(" ", "-")
         self.value_label = value_label
         self.feature_y = 'cost'
-        self.norms_calculated = False
 
         # Equivalent to `html.Div([...])`
         super().__init__(
@@ -40,23 +39,21 @@ class TreeMapChart(html.Div):
             # i.e. make uncommon entries bigger, more common smaller
             # thus it is easier to see relative costs, removed from sample size
             # a large size tells you, GIVEN such a category occurred, it is relatively more costly
-            if not self.norms_calculated:
-                df['norm_factor'] = [1] * len(df)
-                for cat in category_features:
-                    freqs = dict(df[cat].value_counts())
-                    # scale up / down norm_cost depending on the right frequency
-                    total = sum(freqs.values())
-                    # expected number per class if they were uniformly distributed
-                    expectation = 1 / len(freqs)
-                    for key in freqs:
-                        ratio = freqs[key] / total
-                        # ratio * correction = expectation
-                        correction = expectation / ratio
-                        df.loc[df[cat] == key, 'norm_factor'] *= correction
-                df['norm_cost'] = df.apply(
-                    lambda row: row['norm_factor'] * row[self.feature_y], axis=1)
-                df.loc[:, 'norm_cost'] /= df['norm_cost'].sum()
-                self.norms_calculated = True
+            df['norm_factor'] = [1] * len(df)
+            for cat in category_features:
+                freqs = dict(df[cat].value_counts())
+                # scale up / down norm_cost depending on the right frequency
+                total = sum(freqs.values())
+                # expected number per class if they were uniformly distributed
+                expectation = 1 / len(freqs)
+                for key in freqs:
+                    ratio = freqs[key] / total
+                    # ratio * correction = expectation
+                    correction = expectation / ratio
+                    df.loc[df[cat] == key, 'norm_factor'] *= correction
+            df['norm_cost'] = df.apply(
+                lambda row: row['norm_factor'] * row[self.feature_y], axis=1)
+            df.loc[:, 'norm_cost'] /= df['norm_cost'].sum()
 
             # Color all the squares by the value of the last category so they are consistent
             # among buckets and between the pair of graphs
