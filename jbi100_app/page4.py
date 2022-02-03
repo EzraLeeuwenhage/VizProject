@@ -13,11 +13,9 @@ from jbi100_app.config import category_list4
 
 cdf = get_data()
 plot1 = Stackedplot("Annual cost over time", 'casualty_type', cdf, 'cost (£)')
-# TODO: radial plots here (by month, and by day, and by hour (not sure that's in the data)???)
-# https://stackoverflow.com/questions/30222533/create-a-day-of-week-column-in-a-pandas-dataframe-using-python
-plot2 = TreeMapChart("High-level cost breakdown by casualty 2")
 plot2 = RadialPlot("Cost by month", cdf, Sections.month)
 plot3 = RadialPlot("Cost by day of week", cdf, Sections.week)
+plot4 = RadialPlot("Cost by hour of day", cdf, Sections.hour)
 
 @app.callback(
     Output(plot1.html_id, "figure"), [
@@ -40,6 +38,13 @@ def update_plot_2(selected_category):
 def update_plot_3(selected_category):
     return plot3.update(selected_category)
 
+@app.callback(
+    Output(plot4.html_id, "figure"), [
+        Input("page4-plot1-category", "value"),
+    ])
+def update_plot_4(selected_category):
+    return plot4.update(selected_category)
+
 def layout():
     categories = category_list4
     plot1_menu = html.Div(
@@ -61,5 +66,6 @@ def layout():
             plot1,
             plot2,
             plot3,
+            plot4,
         ],
     )

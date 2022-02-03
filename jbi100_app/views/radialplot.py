@@ -7,8 +7,8 @@ from collections import namedtuple
 
 from jbi100_app.views.shared import field_to_title
 
-SectionsClass = namedtuple('SectionsClass', ['week', 'month'])
-Sections = SectionsClass('week', 'month')
+SectionsClass = namedtuple('SectionsClass', ['week', 'month', 'hour'])
+Sections = SectionsClass('week', 'month', 'hour')
 
 # Stacked radial plot, where areas are determined by 'value' label, colored by category,
 # and arranged by section (month or day of week)
@@ -24,6 +24,8 @@ class RadialPlot(html.Div):
             df[self.section_name] = df['datetime'].dt.weekday
         elif section == Sections.month:
             df[self.section_name] = df['datetime'].dt.month
+        elif section == Sections.hour:
+            df[self.section_name] = df['datetime'].dt.hour
         self.df = df
 
 
