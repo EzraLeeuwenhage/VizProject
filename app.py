@@ -12,6 +12,7 @@ from jbi100_app.views.twinhistogram import Twinhistogram
 
 import jbi100_app.page1 as page1
 import jbi100_app.page2 as page2
+import jbi100_app.page3 as page3
 import jbi100_app.page4 as page4
 
 if __name__ == '__main__':
@@ -60,7 +61,7 @@ if __name__ == '__main__':
         elif plot_num == 2:
             return page2.layout()
         elif plot_num == 3:
-            return plot3
+            return page3.layout()
         elif plot_num == 4:
             return page4.layout()
 
