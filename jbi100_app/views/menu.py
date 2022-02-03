@@ -30,29 +30,15 @@ def generate_control_card(plot_num):
     if plot_num == 1:
         return html.Div(
             id="control-card",
-            children=[
-                html.Label("Category plot 1"),
-                dcc.Dropdown(
-                    id="select-category-1",
-                    options=[{"label": i, "value": i} for i in category_list4],
-                    value=category_list4[0],
-                ),
-                html.Br(),
-            ], style={"textAlign": "float-left"}
+            children=[],
+            style={"textAlign": "float-left"}
         )
 
     if plot_num == 2:
         return html.Div(
             id="control-card",
-            children=[
-                html.Label("Category plot 2"),
-                dcc.Dropdown(
-                    id="select-category-2",
-                    options=[{"label": i, "value": i} for i in category_list4],
-                    value=category_list4[0],
-                ),
-                html.Br(),
-            ], style={"textAlign": "float-left"}
+            children=[],
+            style={"textAlign": "float-left"}
         )
 
     if plot_num == 3:

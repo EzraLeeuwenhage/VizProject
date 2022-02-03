@@ -18,7 +18,7 @@ plotx_norm = TreeMapChart("Cost normalized by expected frequency by casualty")
 # Define interactions when updating control card values
 @app.callback(
     Output(plot1.html_id, "figure"), [
-        Input("select-category-1", "value"),
+        Input("plotx-level-1", "value"),
     ])
 def update_plot_1(selected_category):
     return plot1.update(selected_category)

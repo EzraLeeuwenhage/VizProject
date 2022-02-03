@@ -10,13 +10,11 @@ from jbi100_app.views.shared import field_to_title
 # Back-to-back histogram, also called a pyramid chart
 # https://stackoverflow.com/questions/67719166/how-to-plot-pyramid-population-chart-with-plotly
 class Twinhistogram(html.Div):
-    def __init__(self, name, feature, df, n_buckets, value_label='cost'):
+    def __init__(self, name, df, n_buckets, value_label='cost'):
         self.html_id = name.lower().replace(" ", "-")
         self.n_buckets = n_buckets
         self.value_label = value_label
         self.df = df
-        self.feature_color = feature
-        self.feature_year = 'accident_year'
         self.feature_y = 'cost'
 
         # Equivalent to `html.Div([...])`
@@ -28,21 +26,20 @@ class Twinhistogram(html.Div):
             ],
         )
 
-    def update(self, value_feature, category_feature, year):
+    def update(self, value_feature, category_feature, category_value):
         print("start: updating plot")
         start = time.time()
-        # filter by year
-        df = self.df[self.df[self.feature_year] == year]
+        df = self.df
         # then split by binary filter (most frequent of feature vs. the rest)
-        mode = self.df[category_feature].value_counts().idxmax()
+        mode = category_value
         df_a = df[df[category_feature] == mode]
         df_b = df[df[category_feature] != mode]
         # filter out all values of negative 1
         df_a = df_a[df_a[value_feature] >= 0]
         df_b = df_b[df_b[value_feature] >= 0]
-        # remove outliers?: top 1% of the data (usually corresponds to 99=unknown)
-        df_a = df_a[df_a[value_feature] < df_a[value_feature].quantile(.99)]
-        df_b = df_b[df_b[value_feature] < df_b[value_feature].quantile(.99)]
+        # remove outliers?: top 0.01% of the data
+        df_a = df_a[df_a[value_feature] < df_a[value_feature].quantile(.999)]
+        df_b = df_b[df_b[value_feature] < df_b[value_feature].quantile(.999)]
 
         # then based on the category's cost values make histogram
         # determine histogram buckets
@@ -81,7 +78,7 @@ class Twinhistogram(html.Div):
                 range=[-max_fraction, max_fraction],
                 tickvals=xticks,
                 ticktext=[f'{abs(t):.2f}' for t in xticks],
-                title=f'Fraction of {self.value_label} in {year}'),
+                title=f'Fraction of {self.value_label}'),
             legend_title_text=f'{field_to_title(category_feature)}',
             barmode='overlay',
             bargap=0.1)
