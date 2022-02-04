@@ -11,17 +11,9 @@ from jbi100_app.views.treemapchart import TreeMapChart
 from jbi100_app.config import category_list4
 
 cdf = get_data()
-plot1 = Stackedplot("Annual costs over time", 'casualty_type', cdf, 'cost (£)')
 plotx = TreeMapChart("High-level cost breakdown by casualty")
 plotx_norm = TreeMapChart("Cost normalized by expected frequency by casualty")
 
-# Define interactions when updating control card values
-@app.callback(
-    Output(plot1.html_id, "figure"), [
-        Input("plotx-level-1", "value"),
-    ])
-def update_plot_1(selected_category):
-    return plot1.update(selected_category)
 
 @app.callback(
     Output(plotx.html_id, "figure"), [
@@ -34,6 +26,7 @@ def update_plot_x(*args):
     tree_levels = [level for level in args if level != NONE]
     return plotx.update(cdf, tree_levels)
 
+
 @app.callback(
     Output(plotx_norm.html_id, "figure"), [
         Input("plotx-level-1", "value"),
@@ -45,10 +38,13 @@ def update_plot_x_norm(*args):
     tree_levels = [level for level in args if level != NONE]
     return plotx_norm.update(cdf, tree_levels, True)
 
+
 NONE = "None"
+
 
 def layout():
     categories = [NONE] + category_list4
+
     def tree_level(id):
         return html.Div(children=[
             html.Label("Level " + str(id)),
@@ -73,10 +69,9 @@ def layout():
     return html.Div(
         className="center-plots",
         children=[
-            html.Div(children=["Home page plots :)"]),
+            html.Div(children=["Home Page"]),
             plotx_menu,
             plotx,
             plotx_norm,
-            plot1,
         ],
     )

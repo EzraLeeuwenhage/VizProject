@@ -85,7 +85,7 @@ def layout():
     return html.Div(
         className="center-plots",
         children=[
-            html.Div(children=["Second page plots"]),
+            html.Div(children=["Distribution of Cost on Attributes"]),
             plot1_menu,
             plot1,
             plot2_menu,

@@ -1,15 +1,12 @@
 from jbi100_app.data import get_data
 from jbi100_app.main import app
 import jbi100_app.views.menu as menu
-from jbi100_app.views.scatterplot import Scatterplot
 
 from dash import html
-import plotly.express as px
+
 from dash.dependencies import Input, Output
 
-from jbi100_app.views.stackedplot import Stackedplot
-from jbi100_app.views.twinhistogram import Twinhistogram
-
+from jbi100_app.config import plot_pages
 import jbi100_app.page1 as page1
 import jbi100_app.page2 as page2
 import jbi100_app.page3 as page3
@@ -42,13 +39,13 @@ if __name__ == '__main__':
         ],
     )
 
-    # Define menu creation with callback
-    @app.callback(
-        Output(component_id="control_card", component_property="children"), [
-            Input(component_id="select-plot", component_property="value"),
-        ])
-    def make_control_layout(plot_num):
-        return menu.generate_control_card(plot_num)
+    # # Define menu creation with callback
+    # @app.callback(
+    #     Output(component_id="control_card", component_property="children"), [
+    #         Input(component_id="select-plot", component_property="value"),
+    #     ])
+    # def make_control_layout(plot_num):
+    #     return menu.generate_control_card(plot_num)
 
     # Define behaviour when selecting new plot number
     @app.callback(
@@ -56,13 +53,13 @@ if __name__ == '__main__':
             Input(component_id="select-plot", component_property="value"),
         ])
     def init_plot(plot_num):
-        if plot_num == 1:
+        if plot_num == plot_pages[0]:
             return page1.layout()
-        elif plot_num == 2:
+        elif plot_num == plot_pages[1]:
             return page2.layout()
-        elif plot_num == 3:
+        elif plot_num == plot_pages[2]:
             return page3.layout()
-        elif plot_num == 4:
+        elif plot_num == plot_pages[3]:
             return page4.layout()
 
     app.run_server(debug=False, dev_tools_ui=False)

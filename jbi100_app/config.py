@@ -15,4 +15,4 @@ category_list4 = sorted(list(set(category_list1 + category_list3)))
 casualty_data = 'data/dft-road-casualty-statistics-casualty-1979-2020.csv'
 accident_data = 'data/dft-road-casualty-statistics-accident-1979-2020.csv'
 
-num_plots = 4
+plot_pages = ["Exploration - Severity ~ Cost", "Attribute Distributions", "Measures of Correlation", "Temporal Data"]
