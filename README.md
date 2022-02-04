@@ -1,18 +1,36 @@
-# JBI100-example-app
+# Traviz-app
 
 ## About this app
 
-You can use this as a basic template for your JBI100 visualization project.
+This app is TraViz.
+
+Note: Python 3.8+ is REQUIRED.
+
+## What part we implemented
+
+We implemented the code in all of the .py files of this project.
+That includes all of the plots, the data loading, and the UI interaction with Dash.
+We use the libraries plotly, pandas, and Dash.
+
+When you first run the code, it will ask a sampling rate.
+Higher values make the code run faster.
+We suggest trying 30 to see the graphs quickly.
+
+# Organization
+
+- `app.py`: the entry point
+- `ave/`: various data loading utilities
+- `jbi100_app/`: the main project code, organized by page number
+- `jbi100_app/`: all of the graphs shown in the tool, one per file
 
 ## Requirements
 
-* Python 3 (add it to your path (system variables) to make sure you can access it from the command prompt)
+* Python 3.8+ (add it to your path (system variables) to make sure you can access it from the command prompt)
 * Git (https://git-scm.com/book/en/v2/Getting-Started-Installing-Git)
 
 ## How to run this app
 
-We suggest you to create a virtual environment for running this app with Python 3. Clone this repository 
-and open your terminal/command prompt in the root folder.
+Clone this repository and open your terminal/command prompt in the root folder.
 
 
 open the command prompt
@@ -51,22 +69,3 @@ You will get a http link, open this in your browser to see the results. You can 
 ## Resources
 
 * [Dash](https://dash.plot.ly/)
-
-
-# TODO:
-- labels for the category values: Ave
-- page1: Peter
-  ~~- make the graphs have consistent colors~~
-- page2: Eke
-  - create a detailed graph of specific attribute (maybe just a pie chart or bar chat)
-- page3: Ezra
-  - comparison between two attributes
-  - e.g. ternary plot, back-to-back histogram
-- page4: Peter
-  ~~- visualization of attribute info over time~~
-  ~~- e.g. radial plot / stacked line chart~~
-
-- final touches: all
-  - buttons for ui to go between pages
-  - make graphs look nice
-  - loading spinner when making changes

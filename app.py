@@ -39,14 +39,6 @@ if __name__ == '__main__':
         ],
     )
 
-    # # Define menu creation with callback
-    # @app.callback(
-    #     Output(component_id="control_card", component_property="children"), [
-    #         Input(component_id="select-plot", component_property="value"),
-    #     ])
-    # def make_control_layout(plot_num):
-    #     return menu.generate_control_card(plot_num)
-
     # Define behaviour when selecting new plot number
     @app.callback(
         Output(component_id="right-column", component_property="children"), [
