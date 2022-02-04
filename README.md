@@ -3,6 +3,7 @@
 ## About this app
 
 This app is TraViz.
+
 Note: Python 3.8+ is REQUIRED.
 
 ## What part we implemented
@@ -16,14 +17,15 @@ Higher values make the code run faster.
 We suggest trying 30 to see the graphs quickly.
 
 # Organization
-`app.py`: the entry point
-`ave/`: various data loading utilities
-`jbi100_app/`: the main project code, organized by page number
-`jbi100_app/`: all of the graphs shown in the tool, one per file
+
+- `app.py`: the entry point
+- `ave/`: various data loading utilities
+- `jbi100_app/`: the main project code, organized by page number
+- `jbi100_app/`: all of the graphs shown in the tool, one per file
 
 ## Requirements
 
-* Python 3 (add it to your path (system variables) to make sure you can access it from the command prompt)
+* Python 3.8+ (add it to your path (system variables) to make sure you can access it from the command prompt)
 * Git (https://git-scm.com/book/en/v2/Getting-Started-Installing-Git)
 
 ## How to run this app
