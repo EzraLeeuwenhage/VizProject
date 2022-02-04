@@ -44,6 +44,13 @@ NONE = "None"
 
 def layout():
     categories = [NONE] + category_list4
+    total_rows = {}
+    total_cost = {}
+    severities = ['Slight', 'Serious', 'Fatal']
+    for sev in severities:
+        df = cdf[cdf['casualty_severity'] == sev]
+        total_rows[sev] = len(df)
+        total_cost[sev] = df['cost'].sum()
 
     def tree_level(id):
         return html.Div(children=[
@@ -69,7 +76,12 @@ def layout():
     return html.Div(
         className="center-plots",
         children=[
-            html.Div(children=["Home Page"]),
+            html.Div(children=[
+                "Home Page",
+                html.Br(),
+                *[html.Span("Total Rows"), *[html.Div(children=[f"{sev}: {total_rows[sev]}"]) for sev in severities]],
+                *[html.Span("Total Costs"), *[html.Div(children=[f"{sev}: £{total_cost[sev] : .2f}"]) for sev in severities]]
+            ], className="data_row"),
             plotx_menu,
             plotx,
             plotx_norm,

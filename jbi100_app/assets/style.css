@@ -60,3 +60,15 @@ h5 {
   clear: both;
   display: table;
 }
+
+.data_row {
+    background-color: white;
+    border-radius: 0.675rem;
+    padding: 1rem;
+    margin: auto;
+    margin-top: 20px;
+}
+
+.data_row > span {
+    font-weight: bold;
+}
