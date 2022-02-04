@@ -26,8 +26,9 @@ class TreeMapChart(html.Div):
         )
 
     # Value feature for colors, category feature for bars
-    def update(self, df, category_features, normalize=False):
+    def update(self, cdf, category_features, normalize=False):
         print("start: updating plot")
+        df = cdf
         cats = category_features
         cats = [l for i, l in enumerate(cats) if l not in cats[:i] and not l is None]
         if len(cats) == 0:
@@ -63,7 +64,7 @@ class TreeMapChart(html.Div):
             df[color] = df[color].astype(str)
 
             cats = category_features
-            tree = df.groupby(cats)[cats + ['norm_cost']].agg(
+            tree = df.groupby(cats).agg(
                 {'norm_cost': np.sum}
             ).reset_index()
 
@@ -81,7 +82,7 @@ class TreeMapChart(html.Div):
 
             cats = category_features
             cats = [l for i, l in enumerate(cats) if l not in cats[:i]]
-            tree = df.groupby(cats)[cats + ['cost']].agg(
+            tree = df.groupby(cats).agg(
                 {'cost': np.sum}
             ).reset_index()
 
