@@ -3,12 +3,17 @@
 ## About this app
 
 This app is TraViz.
+Note: Python 3.8+ is REQUIRED.
 
 ## What part we implemented
 
 We implemented the code in all of the .py files of this project.
 That includes all of the plots, the data loading, and the UI interaction with Dash.
 We use the libraries plotly, pandas, and Dash.
+
+When you first run the code, it will ask a sampling rate.
+Higher values make the code run faster.
+We suggest trying 30 to see the graphs quickly.
 
 # Organization
 `app.py`: the entry point
